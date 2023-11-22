@@ -8,7 +8,7 @@ internal class Program
 		var context = new Bdsem3Context();
 		while (true)
 		{
-			await Task.Delay(TimeSpan.FromMinutes(10));
+			await Task.Delay(TimeSpan.FromMinutes(100));
 			DateTime currentTime = DateTime.UtcNow;
 			var dataToDelete = context.SensorsData
 				.Where(s => s.DateTime < currentTime)
@@ -37,15 +37,15 @@ internal class Program
 				{
 					var sensorsDatum = new SensorsDatum
 					{
-						Id = n++,
+						//Id = n++,
 						RoomId = rand.Next(12, 311),
-						Temperature = rand.Next(-3, 38),
+						Temperature = rand.NextDouble() * 40 - 1,
 						Pressure = rand.Next(760, 1013),
 						Humidity = rand.Next(30, 50),
 						DateTime = DateTime.UtcNow
 					};
 					sensorsDatums.Add(sensorsDatum);
-					Console.WriteLine($"{i}: {JsonConvert.SerializeObject(sensorsDatum)}");
+					Console.WriteLine($"{n++}: {JsonConvert.SerializeObject(sensorsDatum)}");
 				}
 				context.ChangeTracker.AutoDetectChangesEnabled = false;
 				context.SensorsData.AddRange(sensorsDatums);
@@ -59,7 +59,8 @@ internal class Program
 			}
 			await deleteTask;
 		}
-		//Mongo DB 122155 за 1 сек
-		//SQL 1422 за 1 сек
+
+		//Mongo DB 5237 and 442 за 1 сек
+		//SQL 1450 and 770 за 1 сек
 	}
 }

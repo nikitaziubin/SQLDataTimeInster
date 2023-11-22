@@ -461,9 +461,9 @@ public partial class Bdsem3Context : DbContext
 
         modelBuilder.Entity<SensorsDatum>(entity =>
         {
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            //entity.Property(e => e.Id)
+            //    .ValueGeneratedNever()
+            //    .HasColumnName("id");
             entity.Property(e => e.DateTime).HasColumnType("datetime");
             entity.Property(e => e.Humidity).HasColumnName("humidity");
             entity.Property(e => e.Pressure).HasColumnName("pressure");
